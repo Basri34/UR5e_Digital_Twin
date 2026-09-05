@@ -1,6 +1,6 @@
 # Sentinel Arm: Robotic Digital Twin with Behavioural IDS and IDPS
 
-MSc Cybersecurity project - Omar Albasri, University of Glasgow.
+MSc Cybersecurity project: Omar Albasri, University of Glasgow.
 
 Sentinel Arm is a ROS 2/Gazebo UR5e workcell that performs repeatable pick-and-place tasks, simulates four command-layer attacks, records command and physical telemetry, and evaluates machine-learning intrusion detection and pre-execution trajectory blocking.
 
@@ -11,18 +11,28 @@ The short task moves the cube. The long task moves the cube and then the cylinde
 ## Contents
 
 - [Demonstrations](#demonstrations)
+
 - [How the system works](#how-the-system-works)
+
 - [Repository and source guide](#repository-and-source-guide)
+
 - [Dependencies and build](#dependencies-and-build)
+
 - [Model files](#model-files)
+
 - [Run the workcell](#run-the-workcell)
+
 - [Run normal tasks](#run-normal-tasks)
+
 - [Run attack experiments](#run-attack-experiments)
+
 - [Monitor decisions and interpret outcomes](#monitor-decisions-and-interpret-outcomes)
+
 - [Data and recorded results](#data-and-recorded-results)
+
 - [Reproducing the evaluation](#reproducing-the-evaluation)
+
 - [Troubleshooting](#troubleshooting)
-- [Repository maintenance](#repository-maintenance)
 
 ## Demonstrations
 
@@ -34,7 +44,6 @@ MKV links provide access to the recordings; downloading and opening them in a co
 |---|---|
 | Short task: cube | [Watch/download](videos/short_task.mkv) |
 | Long task: cube then cylinder | [Watch/download](videos/long_task.mkv) |
-
 | Attack | Cube: monitor | Cube: block | Cylinder: monitor | Cylinder: block |
 |---|---|---|---|---|
 | Command injection | [Recording](videos/CI_MONITOR1.mkv) | [Recording](videos/CI_BLOCK1.mkv) | [Recording](videos/CI_MONITOR2.mkv) | [Recording](videos/CI_BLOCK2.mkv) |
@@ -121,17 +130,17 @@ Within `src/sentinel_arm_tasks/sentinel_arm_tasks/`:
 | `add_workcell_collision.py` | Adds workcell collision objects to a MoveIt planning scene. Not needed for fixed-pose replay. |
 | `generate_fixed_poses.py` | Uses MoveIt's `/compute_ik` service to regenerate `fixed_poses.py`. This overwrites that source file and is not part of routine execution. |
 
-`sentinel_ur5e_moveit.launch.py` is the complete workcell wrapper. **Despite its filename, the supplied version does not launch MoveIt or RViz.** It launches Gazebo with the combined robot description, starts the gripper controller and bridges the camera. `sentinel_ur5e.launch.py` is the lower-level launcher; using its defaults alone selects the standard UR description rather than the combined gripper model. The older `simulation.launch.py`, display launch and backup Xacros are not used by the workflow below.
+`sentinel_workcell.launch.py` is the complete workcell wrapper. It does not launch MoveIt or RViz. It launches Gazebo with the combined robot description, starts the gripper controller and bridges the camera. `sentinel_ur5e.launch.py` is the lower-level launcher; using its defaults alone selects the standard UR description rather than the combined gripper model. The older `simulation.launch.py`, display launch and backup Xacros are not used by the workflow below.
 
 ## Dependencies and build
 
 The project environment uses ROS 2 Jazzy, Gazebo Sim 8/Harmonic and system Python on Linux Mint 22.x. These instructions assume ROS 2 Jazzy and the corresponding ROS package repositories are already installed. On a fresh system, complete the ROS installation before running them.
 
-Clone the repository into the conventional workspace location, replacing the URL:
+Clone the repository into the conventional workspace location:
 
 ```bash
 mkdir -p ~/master_project
-git clone https://github.com/YOUR_USERNAME/YOUR_REPOSITORY.git ~/master_project/sentinel_arm_ws
+git clone https://github.com/Basri34/UR5e_Digital_Twin.git ~/master_project/sentinel_arm_ws
 cd ~/master_project/sentinel_arm_ws
 git lfs install
 git lfs pull
@@ -233,10 +242,10 @@ mkdir -p "$RUN_DIR"
 
 All terminals for a session must use the **same absolute `RUN_DIR`**. This keeps new demonstrations separate from the collected dissertation data. For block-mode experiments use `data/readme_demo/block` in every terminal instead. Existing CSVs may be appended to; choose a new directory if a completely fresh session is needed.
 
-### Terminal 1 - simulator and controllers
+### Terminal 1: simulator and controllers
 
 ```bash
-ros2 launch sentinel_arm_gazebo sentinel_ur5e_moveit.launch.py
+ros2 launch sentinel_arm_gazebo sentinel_workcell.launch.py
 ```
 
 Wait for the controllers to activate. In another prepared terminal:
@@ -248,7 +257,7 @@ ros2 action list -t
 
 Expect active `joint_state_broadcaster`, `scaled_joint_trajectory_controller` and `robotiq_gripper_controller`, plus the arm and gripper action endpoints listed earlier.
 
-### Terminal 2 - gateway
+### Terminal 2: gateway
 
 For monitor mode:
 
@@ -270,7 +279,7 @@ ros2 run sentinel_arm_ids idps_gateway --ros-args \
 
 Use only one gateway at a time. Restart to change mode; the supplied implementation reads its enforcement settings at startup.
 
-### Terminal 3 - one proxy
+### Terminal 3: one proxy
 
 For normal operation or MITM experiments:
 
@@ -282,7 +291,7 @@ For normal operation or MITM experiments:
 
 For the other attack families, replace this process with the appropriate proxy from the next section. Do not run several proxies together.
 
-### Terminal 4 - passive IDS
+### Terminal 4: passive IDS
 
 Start this before running a task:
 
@@ -295,7 +304,7 @@ ros2 run sentinel_arm_ids live_ids_node --ros-args \
 
 By default the IDS skips pre-existing command rows. It monitors live `/joint_states`; merely pointing it to an old trace does not reproduce historical physical-feature analysis.
 
-### Optional terminal - overhead object detector
+### Optional terminal: overhead object detector
 
 ```bash
 ros2 run sentinel_arm_tasks object_detector
@@ -388,7 +397,7 @@ These task commands are identical in monitor and block modes. The gateway proces
 
 ### Command injection: task commands
 
-**Short task - cube targeted**
+**Short task: cube targeted**
 
 ```bash
 ros2 run sentinel_arm_tasks repeat_short_task --runs 1 \
@@ -406,7 +415,7 @@ ros2 run sentinel_arm_tasks repeat_short_task --runs 1 \
   --attack-events-csv "$RUN_DIR/attack_events.csv"
 ```
 
-**Long task - cylinder targeted**
+**Long task: cylinder targeted**
 
 ```bash
 ros2 run sentinel_arm_tasks repeat_long_task --runs 1 \
@@ -426,7 +435,7 @@ ros2 run sentinel_arm_tasks repeat_long_task --runs 1 \
 
 ### MITM manipulation: task commands
 
-**Short task - cube targeted**
+**Short task: cube targeted**
 
 ```bash
 ros2 run sentinel_arm_tasks repeat_short_task --runs 1 \
@@ -444,7 +453,7 @@ ros2 run sentinel_arm_tasks repeat_short_task --runs 1 \
   --attack-events-csv "$RUN_DIR/attack_events.csv"
 ```
 
-**Long task - cylinder targeted**
+**Long task: cylinder targeted**
 
 ```bash
 ros2 run sentinel_arm_tasks repeat_long_task --runs 1 \
@@ -464,7 +473,7 @@ ros2 run sentinel_arm_tasks repeat_long_task --runs 1 \
 
 ### Replay: task commands
 
-**Short task - cube targeted**
+**Short task: cube targeted**
 
 ```bash
 ros2 run sentinel_arm_tasks repeat_short_task --runs 1 \
@@ -482,7 +491,7 @@ ros2 run sentinel_arm_tasks repeat_short_task --runs 1 \
   --attack-events-csv "$RUN_DIR/attack_events.csv"
 ```
 
-**Long task - cylinder targeted**
+**Long task: cylinder targeted**
 
 ```bash
 ros2 run sentinel_arm_tasks repeat_long_task --runs 1 \
@@ -502,7 +511,7 @@ ros2 run sentinel_arm_tasks repeat_long_task --runs 1 \
 
 ### Delay DoS: task commands
 
-**Short task - cube targeted**
+**Short task: cube targeted**
 
 ```bash
 ros2 run sentinel_arm_tasks repeat_short_task --runs 1 \
@@ -520,7 +529,7 @@ ros2 run sentinel_arm_tasks repeat_short_task --runs 1 \
   --attack-events-csv "$RUN_DIR/attack_events.csv"
 ```
 
-**Long task - cylinder targeted**
+**Long task: cylinder targeted**
 
 ```bash
 ros2 run sentinel_arm_tasks repeat_long_task --runs 1 \
@@ -609,8 +618,11 @@ The documented runtime commands reproduce individual normal and attacked task co
 The project summary describes binary and multiclass detection, normal-only novelty detection, configuration holdout, leave-one-attack-out, feature-group ablation, attack-impact analysis and matched live monitor/block validation. Complete offline reproduction additionally requires:
 
 - The actual feature-building, training, evaluation and plotting scripts, including their command-line arguments and execution order.
+
 - The input datasets and original run/configuration manifests or split definitions.
+
 - The relevant dependency versions, saved model bundles and genuine version manifest.
+
 - The scripts defining live event matching and the prevention/detection metrics.
 
 The supplied documentation archive contained no files inside `ml/`, and no root `prepare_system_python.sh` or batch-validation scripts. Exact commands for these missing components cannot be verified from this archive. Add and review those sources before presenting this README as a complete offline reproduction guide.
@@ -622,7 +634,7 @@ Do not retrain or change the 0.99 threshold merely to make a demonstration block
 | Symptom | Check or action |
 |---|---|
 | `Package not found` or module import error | Source `/opt/ros/jazzy/setup.bash`, build the workspace and source `install/setup.bash` in that terminal. |
-| No gripper or tasks wait for gripper | Use the complete `sentinel_ur5e_moveit.launch.py` wrapper and inspect `ros2 control list_controllers`. |
+| No gripper or tasks wait for gripper | Use the complete `sentinel_workcell.launch.py` wrapper and inspect `ros2 control list_controllers`. |
 | Missing Robotiq Xacro/macro error | Check the installed `robotiq_description` files and compatibility with the combined Xacro. |
 | Missing model/version manifest | Put the genuine trained bundle and `model_versions.json` in the source model directory, then rebuild. |
 | scikit-learn mismatch | Match the recorded training runtime or use the verified preparation/training workflow. Do not bypass the manifest check. |
@@ -650,5 +662,3 @@ Optional gripper diagnostic:
 ```bash
 /usr/bin/python3 -m sentinel_arm_tasks.gripper_state
 ```
-
-Do not run `generate_fixed_poses.py` as a normal startup step. It requires a separately configured MoveIt IK service and writes new poses into the source tree. The supplied workcell wrapper does not start that service.
