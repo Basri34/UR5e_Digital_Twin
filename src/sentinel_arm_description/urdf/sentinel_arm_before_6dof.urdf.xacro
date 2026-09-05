@@ -1,0 +1,528 @@
+<?xml version="1.0"?>
+
+<robot
+  name="sentinel_arm"
+  xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <!-- ========================= -->
+  <!-- Robot dimensions          -->
+  <!-- ========================= -->
+
+  <xacro:property name="base_radius" value="0.17"/>
+  <xacro:property name="base_height" value="0.08"/>
+
+  <xacro:property name="turntable_radius" value="0.11"/>
+  <xacro:property name="turntable_height" value="0.08"/>
+
+  <xacro:property name="shoulder_height" value="0.28"/>
+  <xacro:property name="shoulder_width" value="0.12"/>
+
+  <xacro:property name="upper_arm_length" value="0.34"/>
+  <xacro:property name="upper_arm_width" value="0.09"/>
+
+  <xacro:property name="forearm_length" value="0.29"/>
+  <xacro:property name="forearm_width" value="0.075"/>
+
+  <xacro:property name="wrist_length" value="0.13"/>
+  <xacro:property name="wrist_width" value="0.065"/>
+
+  <xacro:property name="palm_length" value="0.075"/>
+  <xacro:property name="palm_width" value="0.14"/>
+  <xacro:property name="palm_height" value="0.055"/>
+
+  <xacro:property name="finger_length" value="0.11"/>
+  <xacro:property name="finger_width" value="0.018"/>
+  <xacro:property name="finger_height" value="0.045"/>
+
+  <!-- ========================= -->
+  <!-- Materials                 -->
+  <!-- ========================= -->
+
+  <material name="sentinel_black">
+    <color rgba="0.06 0.07 0.09 1.0"/>
+  </material>
+
+  <material name="sentinel_blue">
+    <color rgba="0.08 0.30 0.72 1.0"/>
+  </material>
+
+  <material name="sentinel_light">
+    <color rgba="0.70 0.74 0.82 1.0"/>
+  </material>
+
+  <material name="sentinel_dark">
+    <color rgba="0.19 0.22 0.28 1.0"/>
+  </material>
+
+  <material name="sentinel_orange">
+    <color rgba="0.96 0.38 0.06 1.0"/>
+  </material>
+
+  <!-- ========================= -->
+  <!-- Base                      -->
+  <!-- ========================= -->
+
+  <link name="base_link">
+    <visual>
+      <origin xyz="0 0 ${base_height / 2.0}" rpy="0 0 0"/>
+
+      <geometry>
+        <cylinder
+          radius="${base_radius}"
+          length="${base_height}"/>
+      </geometry>
+
+      <material name="sentinel_black"/>
+    </visual>
+
+    <!-- Decorative upper base ring -->
+    <visual>
+      <origin xyz="0 0 ${base_height + 0.015}" rpy="0 0 0"/>
+
+      <geometry>
+        <cylinder radius="0.14" length="0.03"/>
+      </geometry>
+
+      <material name="sentinel_dark"/>
+    </visual>
+  </link>
+
+  <!-- ========================= -->
+  <!-- Rotating shoulder base    -->
+  <!-- ========================= -->
+
+  <link name="turntable_link">
+
+    <visual>
+      <origin xyz="0 0 ${turntable_height / 2.0}" rpy="0 0 0"/>
+
+      <geometry>
+        <cylinder
+          radius="${turntable_radius}"
+          length="${turntable_height}"/>
+      </geometry>
+
+      <material name="sentinel_blue"/>
+    </visual>
+
+    <!-- Main shoulder column -->
+    <visual>
+      <origin
+        xyz="0 0 ${shoulder_height / 2.0}"
+        rpy="0 0 0"/>
+
+      <geometry>
+        <box
+          size="${shoulder_width}
+                ${shoulder_width}
+                ${shoulder_height}"/>
+      </geometry>
+
+      <material name="sentinel_blue"/>
+    </visual>
+
+    <!-- Shoulder joint housing -->
+    <visual>
+      <origin
+        xyz="0 0 ${shoulder_height}"
+        rpy="1.5708 0 0"/>
+
+      <geometry>
+        <cylinder radius="0.075" length="0.17"/>
+      </geometry>
+
+      <material name="sentinel_dark"/>
+    </visual>
+
+  </link>
+
+  <joint name="shoulder_pan_joint" type="continuous">
+    <parent link="base_link"/>
+    <child link="turntable_link"/>
+
+    <origin
+      xyz="0 0 ${base_height + 0.03}"
+      rpy="0 0 0"/>
+
+    <axis xyz="0 0 1"/>
+  </joint>
+
+  <!-- ========================= -->
+  <!-- Upper arm                 -->
+  <!-- ========================= -->
+
+  <link name="upper_arm_link">
+
+    <!-- Shoulder joint cap -->
+    <visual>
+      <origin xyz="0 0 0" rpy="1.5708 0 0"/>
+
+      <geometry>
+        <cylinder radius="0.065" length="0.19"/>
+      </geometry>
+
+      <material name="sentinel_orange"/>
+    </visual>
+
+    <!-- Upper arm body -->
+    <visual>
+      <origin
+        xyz="${upper_arm_length / 2.0} 0 0"
+        rpy="0 0 0"/>
+
+      <geometry>
+        <box
+          size="${upper_arm_length}
+                ${upper_arm_width}
+                ${upper_arm_width}"/>
+      </geometry>
+
+      <material name="sentinel_light"/>
+    </visual>
+
+    <!-- Decorative top panel -->
+    <visual>
+      <origin
+        xyz="${upper_arm_length / 2.0} 0 0.05"
+        rpy="0 0 0"/>
+
+      <geometry>
+        <box
+          size="${upper_arm_length - 0.05}
+                ${upper_arm_width + 0.01}
+                0.015"/>
+      </geometry>
+
+      <material name="sentinel_blue"/>
+    </visual>
+
+  </link>
+
+  <joint name="shoulder_lift_joint" type="revolute">
+    <parent link="turntable_link"/>
+    <child link="upper_arm_link"/>
+
+    <origin
+      xyz="0 0 ${shoulder_height}"
+      rpy="0 0 0"/>
+
+    <axis xyz="0 1 0"/>
+
+    <limit
+      lower="-1.75"
+      upper="1.75"
+      effort="30.0"
+      velocity="1.2"/>
+  </joint>
+
+  <!-- ========================= -->
+  <!-- Forearm                   -->
+  <!-- ========================= -->
+
+  <link name="forearm_link">
+
+    <!-- Elbow joint housing -->
+    <visual>
+      <origin xyz="0 0 0" rpy="1.5708 0 0"/>
+
+      <geometry>
+        <cylinder radius="0.06" length="0.16"/>
+      </geometry>
+
+      <material name="sentinel_orange"/>
+    </visual>
+
+    <!-- Forearm body -->
+    <visual>
+      <origin
+        xyz="${forearm_length / 2.0} 0 0"
+        rpy="0 0 0"/>
+
+      <geometry>
+        <box
+          size="${forearm_length}
+                ${forearm_width}
+                ${forearm_width}"/>
+      </geometry>
+
+      <material name="sentinel_blue"/>
+    </visual>
+
+    <!-- Forearm panel -->
+    <visual>
+      <origin
+        xyz="${forearm_length / 2.0} 0 0.043"
+        rpy="0 0 0"/>
+
+      <geometry>
+        <box
+          size="${forearm_length - 0.04}
+                ${forearm_width + 0.008}
+                0.012"/>
+      </geometry>
+
+      <material name="sentinel_light"/>
+    </visual>
+
+  </link>
+
+  <joint name="elbow_joint" type="revolute">
+    <parent link="upper_arm_link"/>
+    <child link="forearm_link"/>
+
+    <origin
+      xyz="${upper_arm_length} 0 0"
+      rpy="0 0 0"/>
+
+    <axis xyz="0 1 0"/>
+
+    <limit
+      lower="-2.35"
+      upper="2.35"
+      effort="22.0"
+      velocity="1.4"/>
+  </joint>
+
+  <!-- ========================= -->
+  <!-- Wrist pitch               -->
+  <!-- ========================= -->
+
+  <link name="wrist_pitch_link">
+
+    <visual>
+      <origin xyz="0 0 0" rpy="1.5708 0 0"/>
+
+      <geometry>
+        <cylinder radius="0.05" length="0.13"/>
+      </geometry>
+
+      <material name="sentinel_dark"/>
+    </visual>
+
+    <visual>
+      <origin
+        xyz="${wrist_length / 2.0} 0 0"
+        rpy="0 0 0"/>
+
+      <geometry>
+        <box
+          size="${wrist_length}
+                ${wrist_width}
+                ${wrist_width}"/>
+      </geometry>
+
+      <material name="sentinel_light"/>
+    </visual>
+
+  </link>
+
+  <joint name="wrist_pitch_joint" type="revolute">
+    <parent link="forearm_link"/>
+    <child link="wrist_pitch_link"/>
+
+    <origin
+      xyz="${forearm_length} 0 0"
+      rpy="0 0 0"/>
+
+    <axis xyz="0 1 0"/>
+
+    <limit
+      lower="-1.75"
+      upper="1.75"
+      effort="12.0"
+      velocity="1.8"/>
+  </joint>
+
+  <!-- ========================= -->
+  <!-- Wrist roll                -->
+  <!-- ========================= -->
+
+  <link name="wrist_roll_link">
+
+    <visual>
+      <origin xyz="0.04 0 0" rpy="0 1.5708 0"/>
+
+      <geometry>
+        <cylinder radius="0.047" length="0.08"/>
+      </geometry>
+
+      <material name="sentinel_orange"/>
+    </visual>
+
+  </link>
+
+  <joint name="wrist_roll_joint" type="continuous">
+    <parent link="wrist_pitch_link"/>
+    <child link="wrist_roll_link"/>
+
+    <origin
+      xyz="${wrist_length} 0 0"
+      rpy="0 0 0"/>
+
+    <axis xyz="1 0 0"/>
+  </joint>
+
+  <!-- ========================= -->
+  <!-- Gripper palm              -->
+  <!-- ========================= -->
+
+  <link name="palm_link">
+
+    <visual>
+      <origin
+        xyz="${palm_length / 2.0} 0 0"
+        rpy="0 0 0"/>
+
+      <geometry>
+        <box
+          size="${palm_length}
+                ${palm_width}
+                ${palm_height}"/>
+      </geometry>
+
+      <material name="sentinel_dark"/>
+    </visual>
+
+    <visual>
+      <origin
+        xyz="${palm_length / 2.0} 0 0.032"
+        rpy="0 0 0"/>
+
+      <geometry>
+        <box
+          size="${palm_length - 0.01}
+                ${palm_width - 0.02}
+                0.012"/>
+      </geometry>
+
+      <material name="sentinel_orange"/>
+    </visual>
+
+  </link>
+
+  <joint name="palm_fixed_joint" type="fixed">
+    <parent link="wrist_roll_link"/>
+    <child link="palm_link"/>
+
+    <origin xyz="0.08 0 0" rpy="0 0 0"/>
+  </joint>
+
+  <!-- ========================= -->
+  <!-- Left gripper finger       -->
+  <!-- ========================= -->
+
+  <link name="left_finger_link">
+
+    <visual>
+      <origin
+        xyz="${finger_length / 2.0} 0 0"
+        rpy="0 0 0"/>
+
+      <geometry>
+        <box
+          size="${finger_length}
+                ${finger_width}
+                ${finger_height}"/>
+      </geometry>
+
+      <material name="sentinel_orange"/>
+    </visual>
+
+    <!-- Fingertip -->
+    <visual>
+      <origin
+        xyz="${finger_length - 0.012} -0.012 0"
+        rpy="0 0 0"/>
+
+      <geometry>
+        <box size="0.025 0.035 0.055"/>
+      </geometry>
+
+      <material name="sentinel_dark"/>
+    </visual>
+
+  </link>
+
+  <joint name="left_finger_joint" type="prismatic">
+    <parent link="palm_link"/>
+    <child link="left_finger_link"/>
+
+    <origin
+      xyz="${palm_length} 0.035 0"
+      rpy="0 0 0"/>
+
+    <axis xyz="0 1 0"/>
+
+    <limit
+      lower="0.0"
+      upper="0.035"
+      effort="8.0"
+      velocity="0.15"/>
+  </joint>
+
+  <!-- ========================= -->
+  <!-- Right gripper finger      -->
+  <!-- ========================= -->
+
+  <link name="right_finger_link">
+
+    <visual>
+      <origin
+        xyz="${finger_length / 2.0} 0 0"
+        rpy="0 0 0"/>
+
+      <geometry>
+        <box
+          size="${finger_length}
+                ${finger_width}
+                ${finger_height}"/>
+      </geometry>
+
+      <material name="sentinel_orange"/>
+    </visual>
+
+    <!-- Fingertip -->
+    <visual>
+      <origin
+        xyz="${finger_length - 0.012} 0.012 0"
+        rpy="0 0 0"/>
+
+      <geometry>
+        <box size="0.025 0.035 0.055"/>
+      </geometry>
+
+      <material name="sentinel_dark"/>
+    </visual>
+
+  </link>
+
+  <joint name="right_finger_joint" type="prismatic">
+    <parent link="palm_link"/>
+    <child link="right_finger_link"/>
+
+    <origin
+      xyz="${palm_length} -0.035 0"
+      rpy="0 0 0"/>
+
+    <axis xyz="0 -1 0"/>
+
+    <limit
+      lower="0.0"
+      upper="0.035"
+      effort="8.0"
+      velocity="0.15"/>
+  </joint>
+
+  <!-- End-effector reference frame -->
+  <link name="tool0"/>
+
+  <joint name="tool0_fixed_joint" type="fixed">
+    <parent link="palm_link"/>
+    <child link="tool0"/>
+
+    <origin
+      xyz="${palm_length + finger_length} 0 0"
+      rpy="0 0 0"/>
+  </joint>
+
+</robot>

@@ -1,0 +1,19 @@
+
+LIVE VALIDATION SUMMARY
+                                         metric      value numerator  denominator
+               idps_monitor_attacked_run_recall   0.800000        80          100
+    idps_monitor_normal_run_false_positive_rate   0.080000         2           25
+                passive_ids_attacked_run_recall   0.970000        97          100
+     passive_ids_normal_run_false_positive_rate   0.400000        10           25
+      idps_block_attacked_run_prevention_recall   0.830000        83          100
+         idps_block_normal_run_false_block_rate   0.040000         1           25
+                      monitor_task_success_rate   0.920000       115          125
+                 block_normal_task_success_rate   0.920000        23           25
+               idps_monitor_inference_ms_median  25.910000                   1679
+                  idps_monitor_inference_ms_p95  37.213600                   1679
+                 idps_block_inference_ms_median  23.912500                   1212
+                    idps_block_inference_ms_p95  28.533950                   1212
+passive_ids_run_median_decision_delay_ms_median 122.070074                    125
+   passive_ids_run_median_decision_delay_ms_p95 159.646940                    125
+
+Results: /home/omar/master_project/sentinel_arm_ws/results/final_data/live_validation

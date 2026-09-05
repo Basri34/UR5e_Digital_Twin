@@ -1,0 +1,378 @@
+<?xml version="1.0"?>
+
+<sdf version="1.9">
+
+  <world name="sentinel_lab">
+
+    <!-- Temporarily disabled until controllers are added -->
+    <gravity>0 0 -9.81</gravity>
+
+    <physics name="sentinel_physics" type="ignored">
+      <max_step_size>0.001</max_step_size>
+      <real_time_factor>1.0</real_time_factor>
+    </physics>
+
+    <plugin
+      filename="gz-sim-physics-system"
+      name="gz::sim::systems::Physics"/>
+
+    <plugin
+      filename="gz-sim-user-commands-system"
+      name="gz::sim::systems::UserCommands"/>
+
+    <plugin
+      filename="gz-sim-scene-broadcaster-system"
+      name="gz::sim::systems::SceneBroadcaster"/>
+
+    <plugin
+    filename="gz-sim-sensors-system"
+    name="gz::sim::systems::Sensors">
+    <render_engine>ogre2</render_engine>
+    </plugin>
+
+    <!-- Lighting -->
+    <light type="directional" name="sun">
+      <cast_shadows>true</cast_shadows>
+
+      <pose>0 0 10 0 0 0</pose>
+
+      <diffuse>0.8 0.8 0.8 1</diffuse>
+      <specular>0.2 0.2 0.2 1</specular>
+
+      <direction>-0.5 0.1 -0.9</direction>
+    </light>
+
+    <!-- Ground -->
+    <model name="ground_plane">
+      <static>true</static>
+
+      <link name="ground_link">
+
+        <collision name="ground_collision">
+          <geometry>
+            <plane>
+              <normal>0 0 1</normal>
+              <size>10 10</size>
+            </plane>
+          </geometry>
+        </collision>
+
+        <visual name="ground_visual">
+          <geometry>
+            <plane>
+              <normal>0 0 1</normal>
+              <size>10 10</size>
+            </plane>
+          </geometry>
+
+          <material>
+            <ambient>0.35 0.35 0.38 1</ambient>
+            <diffuse>0.45 0.45 0.48 1</diffuse>
+          </material>
+        </visual>
+
+      </link>
+    </model>
+
+  
+    <!-- Fixed work table in front of the Sentinel Arm -->
+    <model name="work_table">
+      <static>true</static>
+      <pose>0.25 0 0 0 0 0</pose>
+
+      <link name="table_link">
+
+        <!-- Tabletop -->
+        <collision name="tabletop_collision">
+          <pose>0 0 0.45 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.90 0.60 0.05</size>
+            </box>
+          </geometry>
+        </collision>
+
+        <visual name="tabletop_visual">
+          <pose>0 0 0.45 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.90 0.60 0.05</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.36 0.18 0.07 1</ambient>
+            <diffuse>0.55 0.28 0.10 1</diffuse>
+          </material>
+        </visual>
+
+        <!-- Front-left leg -->
+        <collision name="front_left_leg_collision">
+          <pose>-0.35 0.23 0.2125 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.08 0.08 0.425</size>
+            </box>
+          </geometry>
+        </collision>
+
+        <visual name="front_left_leg_visual">
+          <pose>-0.35 0.23 0.2125 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.08 0.08 0.425</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.12 0.12 0.12 1</ambient>
+            <diffuse>0.20 0.20 0.20 1</diffuse>
+          </material>
+        </visual>
+
+        <!-- Front-right leg -->
+        <collision name="front_right_leg_collision">
+          <pose>-0.35 -0.23 0.2125 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.08 0.08 0.425</size>
+            </box>
+          </geometry>
+        </collision>
+
+        <visual name="front_right_leg_visual">
+          <pose>-0.35 -0.23 0.2125 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.08 0.08 0.425</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.12 0.12 0.12 1</ambient>
+            <diffuse>0.20 0.20 0.20 1</diffuse>
+          </material>
+        </visual>
+
+        <!-- Rear-left leg -->
+        <collision name="rear_left_leg_collision">
+          <pose>0.35 0.23 0.2125 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.08 0.08 0.425</size>
+            </box>
+          </geometry>
+        </collision>
+
+        <visual name="rear_left_leg_visual">
+          <pose>0.35 0.23 0.2125 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.08 0.08 0.425</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.12 0.12 0.12 1</ambient>
+            <diffuse>0.20 0.20 0.20 1</diffuse>
+          </material>
+        </visual>
+
+        <!-- Rear-right leg -->
+        <collision name="rear_right_leg_collision">
+          <pose>0.35 -0.23 0.2125 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.08 0.08 0.425</size>
+            </box>
+          </geometry>
+        </collision>
+
+        <visual name="rear_right_leg_visual">
+          <pose>0.35 -0.23 0.2125 0 0 0</pose>
+          <geometry>
+            <box>
+              <size>0.08 0.08 0.425</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.12 0.12 0.12 1</ambient>
+            <diffuse>0.20 0.20 0.20 1</diffuse>
+          </material>
+        </visual>
+
+      </link>
+    </model>
+
+
+    <!-- Dynamic cube for the future pick-and-place task -->
+    <model name="pickup_cube">
+      <pose>0.43 0.08 0.52 0 0 0</pose>
+
+      <link name="cube_link">
+        <inertial>
+          <mass>0.10</mass>
+          <inertia>
+            <ixx>0.000041667</ixx>
+            <iyy>0.000041667</iyy>
+            <izz>0.000041667</izz>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyz>0</iyz>
+          </inertia>
+        </inertial>
+
+        <collision name="cube_collision">
+          <geometry>
+            <box>
+              <size>0.05 0.05 0.05</size>
+            </box>
+          </geometry>
+        </collision>
+
+        <visual name="cube_visual">
+          <geometry>
+            <box>
+              <size>0.05 0.05 0.05</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.05 0.15 0.75 1</ambient>
+            <diffuse>0.10 0.30 1.00 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+
+    <!-- Destination area for the pick-and-place task -->
+    <model name="placement_zone">
+      <static>true</static>
+      <pose>0.61 0.12 0.477 0 0 0</pose>
+
+      <link name="placement_zone_link">
+        <visual name="placement_zone_visual">
+          <geometry>
+            <box>
+              <size>0.14 0.14 0.004</size>
+            </box>
+          </geometry>
+
+          <material>
+            <ambient>0.05 0.65 0.10 1</ambient>
+            <diffuse>0.10 0.90 0.15 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- Orange destination zone for the triangular object -->
+<model name="cylinder_sort_zone">
+  <static>true</static>
+  <pose>0.61 -0.12 0.477 0 0 0</pose>
+
+  <link name="cylinder_sort_zone_link">
+    <visual name="cylinder_sort_zone_visual">
+      <geometry>
+        <box>
+          <size>0.14 0.14 0.004</size>
+        </box>
+      </geometry>
+
+      <material>
+        <ambient>0.90 0.35 0.05 1</ambient>
+        <diffuse>1.00 0.45 0.05 1</diffuse>
+      </material>
+    </visual>
+  </link>
+</model>
+
+
+<!-- Dynamic orange cylinder for the long sorting task -->
+<model name="cylinder_block">
+  <pose>0.44 -0.08 0.505 0 0 0</pose>
+  <static>false</static>
+
+  <link name="cylinder_link">
+    <inertial>
+      <mass>0.10</mass>
+
+      <inertia>
+        <ixx>0.0000525</ixx>
+        <iyy>0.0000525</iyy>
+        <izz>0.0000450</izz>
+        <ixy>0</ixy>
+        <ixz>0</ixz>
+        <iyz>0</iyz>
+      </inertia>
+    </inertial>
+
+    <collision name="cylinder_collision">
+      <geometry>
+        <cylinder>
+          <radius>0.03</radius>
+          <length>0.06</length>
+        </cylinder>
+      </geometry>
+    </collision>
+
+    <visual name="cylinder_visual">
+      <geometry>
+        <cylinder>
+          <radius>0.03</radius>
+          <length>0.06</length>
+        </cylinder>
+      </geometry>
+
+      <material>
+        <ambient>0.90 0.15 0.05 1</ambient>
+        <diffuse>1.00 0.20 0.05 1</diffuse>
+      </material>
+    </visual>
+  </link>
+</model>
+
+
+<!-- Static overhead camera used for visual shape recognition -->
+<model name="overhead_camera">
+  <static>true</static>
+  <pose>0.45 0 1.55 0 1.5708 0</pose>
+
+  <link name="camera_link">
+    <visual name="camera_body_visual">
+      <geometry>
+        <box>
+          <size>0.08 0.08 0.05</size>
+        </box>
+      </geometry>
+
+      <material>
+        <ambient>0.10 0.10 0.10 1</ambient>
+        <diffuse>0.15 0.15 0.15 1</diffuse>
+      </material>
+    </visual>
+
+    <sensor name="rgb_camera" type="camera">
+      <always_on>true</always_on>
+      <update_rate>15</update_rate>
+      <visualize>true</visualize>
+
+      <topic>/sentinel/overhead_camera/image</topic>
+
+      <camera>
+        <horizontal_fov>1.20</horizontal_fov>
+
+        <image>
+          <width>640</width>
+          <height>480</height>
+          <format>R8G8B8</format>
+        </image>
+
+        <clip>
+          <near>0.05</near>
+          <far>5.0</far>
+        </clip>
+      </camera>
+    </sensor>
+  </link>
+</model>
+
+</world>
+
+</sdf>

@@ -1,0 +1,3 @@
+# This package uses /usr/bin/python3 and ROS/Ubuntu system packages.
+# Do not install this file with pip and do not create a virtual environment.
+# Install the dependencies declared in package.xml with rosdep instead.

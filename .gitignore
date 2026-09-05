@@ -1,0 +1,23 @@
+# ROS 2 generated directories
+build/
+install/
+log/
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+
+# Editors and operating system
+.vscode/
+.idea/
+.DS_Store
+*.swp
+
+# Runtime logs
+*.log
+rosbag2_*/
+*.db3
+*.mcap

@@ -1,0 +1,59 @@
+controller_manager:
+  ros__parameters:
+    update_rate: 100
+
+    joint_state_broadcaster:
+      type: joint_state_broadcaster/JointStateBroadcaster
+
+    arm_controller:
+      type: joint_trajectory_controller/JointTrajectoryController
+
+    gripper_controller:
+      type: parallel_gripper_action_controller/GripperActionController
+
+
+arm_controller:
+  ros__parameters:
+    joints:
+      - shoulder_pan_joint
+      - shoulder_lift_joint
+      - elbow_joint
+      - wrist_pitch_joint
+      - wrist_yaw_joint
+      - wrist_roll_joint
+
+    command_interfaces:
+      - position
+
+    state_interfaces:
+      - position
+      - velocity
+
+    allow_partial_joints_goal: false
+    action_monitor_rate: 20.0
+
+    constraints:
+      stopped_velocity_tolerance: 0.02
+      goal_time: 1.0
+
+
+gripper_controller:
+  ros__parameters:
+    joint: left_finger_joint
+
+    state_interfaces:
+      - position
+      - velocity
+
+    action_monitor_rate: 20.0
+    goal_tolerance: 0.002
+
+    # Keep this false while testing empty open/close movements.
+    # Later, true can allow a grasp to succeed when an object blocks closure.
+    allow_stalling: true
+
+    stall_velocity_threshold: 0.0005
+    stall_timeout: 1.0
+
+    max_velocity: 0.05
+    max_effort: 5.0

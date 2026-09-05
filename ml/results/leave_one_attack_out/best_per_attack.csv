@@ -1,0 +1,5 @@
+held_out_attack,feature_set,model,precision_mean,recall_mean,f1_mean,f1_std,pr_auc_mean,attack_event_recall_mean,attack_event_recall_std,attacked_run_recall_mean,normal_run_false_positive_rate_mean
+command_injection,physical_only,random_forest,0.8471861471861472,0.9199999999999999,0.8722416980125217,0.09523689082946615,0.9779890681195031,0.9199999999999999,0.07582875444051551,0.9199999999999999,0.0
+denial_of_service,fused,random_forest,0.0,0.0,0.0,0.0,0.9776989112445266,0.0,0.0,0.0,0.0
+mitm_trajectory_manipulation,physical_only,hist_gradient_boosting,1.0,0.9800000000000001,0.9897435897435898,0.014044168141158123,1.0,0.9800000000000001,0.02738612787525833,0.9800000000000001,0.0
+replay_attack,cyber_only,random_forest,0.0,0.0,0.0,0.0,0.310316665849765,0.0,0.0,0.0,0.025

@@ -1,0 +1,14 @@
+Preparing normal
+  found 211 runs; using the first 200 from the original offline experiment
+Preparing mitm_trajectory_manipulation
+Preparing command_injection
+Preparing replay_attack
+Preparing denial_of_service
+
+Feature preparation complete
+Runs: 600
+Commands: 8000
+Attack events: 400
+Features: 219
+Saved: /home/omar/master_project/sentinel_arm_ws/ml/outputs/command_features.csv.gz
+Saved: /home/omar/master_project/sentinel_arm_ws/ml/outputs/fold_assignments.csv

@@ -1,0 +1,24 @@
+sentinel_live_ids:
+  ros__parameters:
+    command_trace_csv: "~/master_project/sentinel_arm_ws/data/command_trace.csv"
+    joint_states_topic: "/joint_states"
+    prediction_topic: "/sentinel/ids/prediction"
+    alert_topic: "/sentinel/ids/alert"
+    prediction_log_csv: "~/master_project/sentinel_arm_ws/data/live_ids_predictions.csv"
+    poll_period_seconds: 0.20
+    telemetry_retention_seconds: 180.0
+    telemetry_time_tolerance_seconds: 0.02
+    maximum_sample_rate_hz: 50.0
+    skip_existing_commands: true
+    supervised_attack_threshold: 0.50
+
+sentinel_idps_gateway:
+  ros__parameters:
+    gateway_action: "/sentinel/idps/follow_joint_trajectory"
+    controller_action: "/scaled_joint_trajectory_controller/follow_joint_trajectory"
+    context_topic: "/sentinel/experiment/context"
+    decision_topic: "/sentinel/idps/decision"
+    decision_log_csv: "~/master_project/sentinel_arm_ws/data/idps_decisions.csv"
+    prevention_mode: "monitor"
+    block_confidence_threshold: 0.99
+    controller_wait_timeout_seconds: 30.0

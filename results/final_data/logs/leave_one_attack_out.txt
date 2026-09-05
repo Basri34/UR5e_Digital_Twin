@@ -1,0 +1,38 @@
+Reading prepared features and run folds...
+Running 4 leave-one-attack-out scenarios with five outer folds...
+
+Holding out attack family: command_injection
+  fold 1: 320 fit, 80 threshold, 60 test runs
+  fold 2: 320 fit, 80 threshold, 60 test runs
+  fold 3: 320 fit, 80 threshold, 60 test runs
+  fold 4: 320 fit, 80 threshold, 60 test runs
+  fold 5: 320 fit, 80 threshold, 60 test runs
+
+Holding out attack family: denial_of_service
+  fold 1: 320 fit, 80 threshold, 60 test runs
+  fold 2: 320 fit, 80 threshold, 60 test runs
+  fold 3: 320 fit, 80 threshold, 60 test runs
+  fold 4: 320 fit, 80 threshold, 60 test runs
+  fold 5: 320 fit, 80 threshold, 60 test runs
+
+Holding out attack family: mitm_trajectory_manipulation
+  fold 1: 320 fit, 80 threshold, 60 test runs
+  fold 2: 320 fit, 80 threshold, 60 test runs
+  fold 3: 320 fit, 80 threshold, 60 test runs
+  fold 4: 320 fit, 80 threshold, 60 test runs
+  fold 5: 320 fit, 80 threshold, 60 test runs
+
+Holding out attack family: replay_attack
+  fold 1: 320 fit, 80 threshold, 60 test runs
+  fold 2: 320 fit, 80 threshold, 60 test runs
+  fold 3: 320 fit, 80 threshold, 60 test runs
+  fold 4: 320 fit, 80 threshold, 60 test runs
+  fold 5: 320 fit, 80 threshold, 60 test runs
+
+Leave-one-attack-out evaluation complete.
+             held_out_attack   feature_set                  model  f1_mean  attack_event_recall_mean  attacked_run_recall_mean  normal_run_false_positive_rate_mean
+           command_injection physical_only          random_forest 0.872242                      0.92                      0.92                                0.000
+           denial_of_service         fused          random_forest 0.000000                      0.00                      0.00                                0.000
+mitm_trajectory_manipulation physical_only hist_gradient_boosting 0.989744                      0.98                      0.98                                0.000
+               replay_attack    cyber_only          random_forest 0.000000                      0.00                      0.00                                0.025
+Results: /home/omar/master_project/sentinel_arm_ws/ml/results/leave_one_attack_out

@@ -1,0 +1,82 @@
+Multiclass cross-validation fold 1/5
+  cyber_only / dummy_prior
+  cyber_only / logistic_regression
+  cyber_only / random_forest
+  cyber_only / hist_gradient_boosting
+  physical_only / dummy_prior
+  physical_only / logistic_regression
+  physical_only / random_forest
+  physical_only / hist_gradient_boosting
+  fused / dummy_prior
+  fused / logistic_regression
+  fused / random_forest
+  fused / hist_gradient_boosting
+Multiclass cross-validation fold 2/5
+  cyber_only / dummy_prior
+  cyber_only / logistic_regression
+  cyber_only / random_forest
+  cyber_only / hist_gradient_boosting
+  physical_only / dummy_prior
+  physical_only / logistic_regression
+  physical_only / random_forest
+  physical_only / hist_gradient_boosting
+  fused / dummy_prior
+  fused / logistic_regression
+  fused / random_forest
+  fused / hist_gradient_boosting
+Multiclass cross-validation fold 3/5
+  cyber_only / dummy_prior
+  cyber_only / logistic_regression
+  cyber_only / random_forest
+  cyber_only / hist_gradient_boosting
+  physical_only / dummy_prior
+  physical_only / logistic_regression
+  physical_only / random_forest
+  physical_only / hist_gradient_boosting
+  fused / dummy_prior
+  fused / logistic_regression
+  fused / random_forest
+  fused / hist_gradient_boosting
+Multiclass cross-validation fold 4/5
+  cyber_only / dummy_prior
+  cyber_only / logistic_regression
+  cyber_only / random_forest
+  cyber_only / hist_gradient_boosting
+  physical_only / dummy_prior
+  physical_only / logistic_regression
+  physical_only / random_forest
+  physical_only / hist_gradient_boosting
+  fused / dummy_prior
+  fused / logistic_regression
+  fused / random_forest
+  fused / hist_gradient_boosting
+Multiclass cross-validation fold 5/5
+  cyber_only / dummy_prior
+  cyber_only / logistic_regression
+  cyber_only / random_forest
+  cyber_only / hist_gradient_boosting
+  physical_only / dummy_prior
+  physical_only / logistic_regression
+  physical_only / random_forest
+  physical_only / hist_gradient_boosting
+  fused / dummy_prior
+  fused / logistic_regression
+  fused / random_forest
+  fused / hist_gradient_boosting
+
+Multiclass evaluation complete
+  feature_set                  model  accuracy_mean  accuracy_std  balanced_accuracy_mean  balanced_accuracy_std  macro_precision_mean  macro_recall_mean  macro_f1_mean  macro_f1_std  weighted_f1_mean
+   cyber_only            dummy_prior       0.950000      0.000000                0.200000               0.000000              0.190000           0.200000       0.194872      0.000000          0.925641
+   cyber_only hist_gradient_boosting       0.998000      0.001027                0.977868               0.016392              0.986950           0.977868       0.981448      0.008578          0.997977
+   cyber_only    logistic_regression       0.841375      0.032357                0.944895               0.010740              0.553829           0.944895       0.612073      0.040091          0.890503
+   cyber_only          random_forest       0.998375      0.001135                0.975974               0.018159              0.990439           0.975974       0.982293      0.010967          0.998339
+        fused            dummy_prior       0.950000      0.000000                0.200000               0.000000              0.190000           0.200000       0.194872      0.000000          0.925641
+        fused hist_gradient_boosting       0.999125      0.000713                0.991921               0.004518              0.994180           0.991921       0.992929      0.005628          0.999126
+        fused    logistic_regression       0.928375      0.002746                0.959263               0.020868              0.784213           0.959263       0.811945      0.013586          0.952077
+        fused          random_forest       0.998375      0.000342                0.974000               0.005477              0.999658           0.974000       0.986221      0.003104          0.998338
+physical_only            dummy_prior       0.950000      0.000000                0.200000               0.000000              0.190000           0.200000       0.194872      0.000000          0.925641
+physical_only hist_gradient_boosting       0.986125      0.001202                0.778000               0.019235              0.781821           0.778000       0.778826      0.019801          0.985992
+physical_only    logistic_regression       0.911500      0.003112                0.762289               0.032889              0.631922           0.762289       0.656819      0.020123          0.940224
+physical_only          random_forest       0.979625      0.001854                0.674000               0.029665              0.767843           0.674000       0.699999      0.033609          0.973788
+
+Selected model: fused / hist_gradient_boosting (mean macro F1=0.9929)

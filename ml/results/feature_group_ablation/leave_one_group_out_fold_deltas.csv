@@ -1,0 +1,36 @@
+feature_set,fold,f1_loss,recall_loss,pr_auc_loss
+Without command targets,1,0.0,0.0,0.0
+Without command targets,2,-0.0062893081761006275,-0.012499999999999956,0.0
+Without command targets,3,0.0062893081761006275,0.012499999999999956,0.0
+Without command targets,4,0.0,0.0,0.0
+Without command targets,5,0.0,0.0,1.1102230246251565e-16
+Without joint efforts,1,0.006532745386248595,0.012500000000000067,0.0
+Without joint efforts,2,0.0,0.0,1.1102230246251565e-16
+Without joint efforts,3,0.0,0.0,0.0
+Without joint efforts,4,0.006211180124223614,0.0,0.0
+Without joint efforts,5,0.0,0.0,0.00015432098765433278
+Without joint positions,1,-0.019108280254777066,-0.03749999999999998,0.0
+Without joint positions,2,0.0,0.0,-2.220446049250313e-16
+Without joint positions,3,0.0,0.0,0.0
+Without joint positions,4,0.006211180124223614,0.0,1.1102230246251565e-16
+Without joint positions,5,0.0064500524066758436,0.012499999999999956,0.0
+Without joint velocities,1,0.0,0.0,0.0
+Without joint velocities,2,0.0,0.0,1.1102230246251565e-16
+Without joint velocities,3,0.0,0.0,0.0
+Without joint velocities,4,0.006211180124223614,0.0,0.0
+Without joint velocities,5,0.0,0.0,0.0
+Without sampling context,1,0.0,0.0,1.1102230246251565e-16
+Without sampling context,2,0.0,0.0,1.1102230246251565e-16
+Without sampling context,3,0.0,0.0,-2.220446049250313e-16
+Without sampling context,4,0.0,0.0,0.0
+Without sampling context,5,0.0064500524066758436,0.012499999999999956,0.0
+Without timing and context,1,0.0,0.0,0.0
+Without timing and context,2,0.006368919672000595,0.012500000000000067,1.1102230246251565e-16
+Without timing and context,3,0.0,0.0,0.0
+Without timing and context,4,0.0,0.0,0.0
+Without timing and context,5,0.0,0.0,0.0
+Without tracking residuals,1,0.0,0.0,1.1102230246251565e-16
+Without tracking residuals,2,0.019351717464925033,0.03750000000000009,0.0
+Without tracking residuals,3,0.0,0.0,0.0
+Without tracking residuals,4,0.0,0.0,0.0
+Without tracking residuals,5,-0.006368919672000595,-0.012500000000000067,0.0

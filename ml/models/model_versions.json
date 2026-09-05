@@ -1,0 +1,6 @@
+{
+  "best_multiclass_ids_model.joblib": "1.9.0",
+  "best_novelty_ids_model.joblib": "1.9.0",
+  "best_preexecution_idps_model.joblib": "1.9.0",
+  "best_temporal_novelty_ids_model.joblib": "1.9.0"
+}

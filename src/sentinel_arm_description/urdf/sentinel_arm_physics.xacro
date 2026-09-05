@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <!--
+    Creates collision and inertial properties for a box.
+
+    x_size, y_size and z_size are measured in metres.
+    mass is measured in kilograms.
+    ox, oy and oz specify the centre of the box.
+  -->
+  <xacro:macro
+    name="box_physics"
+    params="mass x_size y_size z_size ox oy oz">
+
+    <collision>
+      <origin xyz="${ox} ${oy} ${oz}" rpy="0 0 0"/>
+
+      <geometry>
+        <box size="${x_size} ${y_size} ${z_size}"/>
+      </geometry>
+    </collision>
+
+    <inertial>
+      <origin xyz="${ox} ${oy} ${oz}" rpy="0 0 0"/>
+
+      <mass value="${mass}"/>
+
+      <inertia
+        ixx="${mass * (y_size * y_size + z_size * z_size) / 12.0}"
+        ixy="0.0"
+        ixz="0.0"
+        iyy="${mass * (x_size * x_size + z_size * z_size) / 12.0}"
+        iyz="0.0"
+        izz="${mass * (x_size * x_size + y_size * y_size) / 12.0}"/>
+    </inertial>
+
+  </xacro:macro>
+
+  <!--
+    Creates collision and inertial properties for a cylinder
+    whose main axis points along the Z axis.
+  -->
+  <xacro:macro
+    name="cylinder_physics"
+    params="mass radius length ox oy oz">
+
+    <collision>
+      <origin xyz="${ox} ${oy} ${oz}" rpy="0 0 0"/>
+
+      <geometry>
+        <cylinder radius="${radius}" length="${length}"/>
+      </geometry>
+    </collision>
+
+    <inertial>
+      <origin xyz="${ox} ${oy} ${oz}" rpy="0 0 0"/>
+
+      <mass value="${mass}"/>
+
+      <inertia
+        ixx="${mass * (3.0 * radius * radius + length * length) / 12.0}"
+        ixy="0.0"
+        ixz="0.0"
+        iyy="${mass * (3.0 * radius * radius + length * length) / 12.0}"
+        iyz="0.0"
+        izz="${mass * radius * radius / 2.0}"/>
+    </inertial>
+
+  </xacro:macro>
+
+</robot>

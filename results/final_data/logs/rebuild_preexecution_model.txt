@@ -1,0 +1,3 @@
+Training the pre-execution model with /usr/bin/python3...
+Saved /home/omar/master_project/sentinel_arm_ws/ml/models/best_preexecution_idps_model.joblib
+Saved /home/omar/master_project/sentinel_arm_ws/src/sentinel_arm_ids/models/best_preexecution_idps_model.joblib

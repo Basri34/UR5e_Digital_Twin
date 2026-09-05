@@ -1,0 +1,125 @@
+<?xml version="1.0"?>
+
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:macro name="sentinel_arm_ros2_control">
+
+    <ros2_control name="SentinelArmSystem" type="system">
+
+      <hardware>
+        <plugin>gz_ros2_control/GazeboSimSystem</plugin>
+      </hardware>
+
+      <joint name="shoulder_pan_joint">
+        <command_interface name="position"/>
+
+        <state_interface name="position">
+          <param name="initial_value">0.0</param>
+        </state_interface>
+
+        <state_interface name="velocity"/>
+      </joint>
+
+      <joint name="shoulder_lift_joint">
+        <command_interface name="position">
+          <param name="min">-1.75</param>
+          <param name="max">1.75</param>
+        </command_interface>
+
+        <state_interface name="position">
+          <param name="initial_value">0.0</param>
+        </state_interface>
+
+        <state_interface name="velocity"/>
+      </joint>
+
+      <joint name="elbow_joint">
+        <command_interface name="position">
+          <param name="min">-2.35</param>
+          <param name="max">2.35</param>
+        </command_interface>
+
+        <state_interface name="position">
+          <param name="initial_value">0.0</param>
+        </state_interface>
+
+        <state_interface name="velocity"/>
+      </joint>
+
+      <joint name="wrist_pitch_joint">
+        <command_interface name="position">
+          <param name="min">-1.75</param>
+          <param name="max">1.75</param>
+        </command_interface>
+
+        <state_interface name="position">
+          <param name="initial_value">0.0</param>
+        </state_interface>
+
+        <state_interface name="velocity"/>
+      </joint>
+
+      <joint name="wrist_yaw_joint">
+        <command_interface name="position">
+          <param name="min">-1.75</param>
+          <param name="max">1.75</param>
+        </command_interface>
+
+        <state_interface name="position">
+          <param name="initial_value">0.0</param>
+        </state_interface>
+
+        <state_interface name="velocity"/>
+      </joint>
+
+      <joint name="wrist_roll_joint">
+        <command_interface name="position"/>
+
+        <state_interface name="position">
+          <param name="initial_value">0.0</param>
+        </state_interface>
+
+        <state_interface name="velocity"/>
+      </joint>
+
+            <!-- Main actuated gripper finger -->
+      <joint name="left_finger_joint">
+
+        <command_interface name="position">
+          <param name="min">-0.005</param>
+          <param name="max">0.035</param>
+        </command_interface>
+
+        <state_interface name="position">
+          <param name="initial_value">0.0</param>
+        </state_interface>
+
+        <state_interface name="velocity"/>
+
+      </joint>
+
+      <!-- Passive finger: follows left_finger_joint through URDF mimic -->
+      <joint name="right_finger_joint">
+
+        <state_interface name="position"/>
+        <state_interface name="velocity"/>
+
+      </joint>
+
+    </ros2_control>
+
+    <gazebo>
+      <plugin
+        filename="libgz_ros2_control-system.so"
+        name="gz_ros2_control::GazeboSimROS2ControlPlugin">
+
+        <parameters>
+          $(find sentinel_arm_control)/config/controllers.yaml
+        </parameters>
+
+      </plugin>
+    </gazebo>
+
+  </xacro:macro>
+
+</robot>

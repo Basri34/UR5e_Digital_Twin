@@ -1,0 +1,5 @@
+attack_label,attack_commands,block_recall,median_confidence
+command_injection,100,0.99,0.9999943627931982
+denial_of_service,100,1.0,0.9999946453572219
+mitm_trajectory_manipulation,100,0.9,0.999965021426688
+replay_attack,100,0.99,0.999995601470503

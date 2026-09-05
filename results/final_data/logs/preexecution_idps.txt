@@ -1,0 +1,20 @@
+Reading command-only features and run folds...
+Running five-fold pre-execution IDPS evaluation...
+  fold 1: macro F1=0.9900, block recall=0.9500, normal false-block rate=0.000000
+  fold 2: macro F1=0.9900, block recall=0.9625, normal false-block rate=0.000000
+  fold 3: macro F1=0.9799, block recall=0.9875, normal false-block rate=0.000000
+  fold 4: macro F1=0.9951, block recall=0.9625, normal false-block rate=0.000000
+  fold 5: macro F1=0.9900, block recall=0.9875, normal false-block rate=0.000000
+
+Pre-execution IDPS evaluation complete.
+   fold  commands  runs  macro_f1  balanced_accuracy  block_threshold  block_precision  block_recall  normal_command_false_block_rate
+overall      8000   600  0.988986           0.989974             0.99              1.0          0.97                              0.0
+
+Block recall by attack family:
+                attack_label  attack_commands  block_recall  median_confidence
+           command_injection              100          0.99           0.999994
+           denial_of_service              100          1.00           0.999995
+mitm_trajectory_manipulation              100          0.90           0.999965
+               replay_attack              100          0.99           0.999996
+Results: /home/omar/master_project/sentinel_arm_ws/ml/results/preexecution_idps
+Rebuilt metrics: /home/omar/master_project/sentinel_arm_ws/ml/outputs/preexecution_idps_cv_metrics.csv

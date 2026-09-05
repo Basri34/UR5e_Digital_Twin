@@ -1,0 +1,46 @@
+Reading prepared features and run folds...
+Running 5 held-out configuration scenarios...
+
+Holding out object=cube
+  fold 1: 196 fit, 49 threshold, 105 test runs
+  fold 2: 186 fit, 47 threshold, 93 test runs
+  fold 3: 192 fit, 48 threshold, 100 test runs
+  fold 4: 190 fit, 48 threshold, 98 test runs
+  fold 5: 195 fit, 49 threshold, 104 test runs
+
+Holding out object=cylinder
+  fold 1: 316 fit, 79 threshold, 55 test runs
+  fold 2: 325 fit, 82 threshold, 67 test runs
+  fold 3: 320 fit, 80 threshold, 60 test runs
+  fold 4: 321 fit, 81 threshold, 62 test runs
+  fold 5: 316 fit, 80 threshold, 56 test runs
+
+Holding out severity=high
+  fold 1: 294 fit, 74 threshold, 64 test runs
+  fold 2: 294 fit, 74 threshold, 64 test runs
+  fold 3: 294 fit, 74 threshold, 64 test runs
+  fold 4: 300 fit, 76 threshold, 72 test runs
+  fold 5: 300 fit, 76 threshold, 72 test runs
+
+Holding out severity=low
+  fold 1: 297 fit, 75 threshold, 68 test runs
+  fold 2: 300 fit, 76 threshold, 72 test runs
+  fold 3: 297 fit, 75 threshold, 68 test runs
+  fold 4: 294 fit, 74 threshold, 64 test runs
+  fold 5: 294 fit, 74 threshold, 64 test runs
+
+Holding out severity=medium
+  fold 1: 304 fit, 76 threshold, 68 test runs
+  fold 2: 300 fit, 76 threshold, 64 test runs
+  fold 3: 304 fit, 76 threshold, 68 test runs
+  fold 4: 300 fit, 76 threshold, 64 test runs
+  fold 5: 300 fit, 76 threshold, 64 test runs
+
+Configuration generalisation evaluation complete.
+            scenario_id   feature_set                  model  f1_mean  attack_event_recall_mean  normal_run_false_positive_rate_mean
+    holdout_object_cube physical_only          random_forest 0.050806                  0.027126                                0.000
+holdout_object_cylinder    cyber_only          random_forest 0.525946                  0.399933                                0.020
+   holdout_severity_low    cyber_only          random_forest 0.770683                  0.662500                                0.015
+holdout_severity_medium         fused          random_forest 0.851568                  0.741667                                0.000
+  holdout_severity_high         fused hist_gradient_boosting 0.852987                  0.743750                                0.000
+Results: /home/omar/master_project/sentinel_arm_ws/ml/results/configuration_generalisation

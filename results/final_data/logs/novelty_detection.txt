@@ -1,0 +1,17 @@
+Reading the command feature table...
+Creating transparent three-command temporal features...
+Running five-fold normal-only novelty evaluation...
+  fold 1: event recall=0.938, normal-run FPR=0.175
+  fold 2: event recall=0.950, normal-run FPR=0.075
+  fold 3: event recall=0.963, normal-run FPR=0.125
+  fold 4: event recall=0.950, normal-run FPR=0.125
+  fold 5: event recall=0.938, normal-run FPR=0.225
+Training the two final novelty models on all normal runs...
+
+Novelty evaluation complete.
+attack_event_recall               0.9475
+attacked_run_recall               0.9575
+normal_run_false_positive_rate    0.1450
+dtype: float64
+Results: /home/omar/master_project/sentinel_arm_ws/ml/outputs
+Models:  /home/omar/master_project/sentinel_arm_ws/ml/models
