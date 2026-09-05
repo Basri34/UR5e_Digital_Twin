@@ -1,6 +1,6 @@
 # Sentinel Arm: Robotic Digital Twin with Behavioural IDS and IDPS
 
-MSc Cybersecurity project — Omar Albasri, University of Glasgow.
+MSc Cybersecurity project - Omar Albasri, University of Glasgow.
 
 Sentinel Arm is a ROS 2/Gazebo UR5e workcell that performs repeatable pick-and-place tasks, simulates four command-layer attacks, records command and physical telemetry, and evaluates machine-learning intrusion detection and pre-execution trajectory blocking.
 
@@ -233,7 +233,7 @@ mkdir -p "$RUN_DIR"
 
 All terminals for a session must use the **same absolute `RUN_DIR`**. This keeps new demonstrations separate from the collected dissertation data. For block-mode experiments use `data/readme_demo/block` in every terminal instead. Existing CSVs may be appended to; choose a new directory if a completely fresh session is needed.
 
-### Terminal 1 — simulator and controllers
+### Terminal 1 - simulator and controllers
 
 ```bash
 ros2 launch sentinel_arm_gazebo sentinel_ur5e_moveit.launch.py
@@ -248,7 +248,7 @@ ros2 action list -t
 
 Expect active `joint_state_broadcaster`, `scaled_joint_trajectory_controller` and `robotiq_gripper_controller`, plus the arm and gripper action endpoints listed earlier.
 
-### Terminal 2 — gateway
+### Terminal 2 - gateway
 
 For monitor mode:
 
@@ -270,7 +270,7 @@ ros2 run sentinel_arm_ids idps_gateway --ros-args \
 
 Use only one gateway at a time. Restart to change mode; the supplied implementation reads its enforcement settings at startup.
 
-### Terminal 3 — one proxy
+### Terminal 3 - one proxy
 
 For normal operation or MITM experiments:
 
@@ -282,7 +282,7 @@ For normal operation or MITM experiments:
 
 For the other attack families, replace this process with the appropriate proxy from the next section. Do not run several proxies together.
 
-### Terminal 4 — passive IDS
+### Terminal 4 - passive IDS
 
 Start this before running a task:
 
@@ -295,7 +295,7 @@ ros2 run sentinel_arm_ids live_ids_node --ros-args \
 
 By default the IDS skips pre-existing command rows. It monitors live `/joint_states`; merely pointing it to an old trace does not reproduce historical physical-feature analysis.
 
-### Optional terminal — overhead object detector
+### Optional terminal - overhead object detector
 
 ```bash
 ros2 run sentinel_arm_tasks object_detector
@@ -388,7 +388,7 @@ These task commands are identical in monitor and block modes. The gateway proces
 
 ### Command injection: task commands
 
-**Short task — cube targeted**
+**Short task - cube targeted**
 
 ```bash
 ros2 run sentinel_arm_tasks repeat_short_task --runs 1 \
@@ -406,7 +406,7 @@ ros2 run sentinel_arm_tasks repeat_short_task --runs 1 \
   --attack-events-csv "$RUN_DIR/attack_events.csv"
 ```
 
-**Long task — cylinder targeted**
+**Long task - cylinder targeted**
 
 ```bash
 ros2 run sentinel_arm_tasks repeat_long_task --runs 1 \
@@ -426,7 +426,7 @@ ros2 run sentinel_arm_tasks repeat_long_task --runs 1 \
 
 ### MITM manipulation: task commands
 
-**Short task — cube targeted**
+**Short task - cube targeted**
 
 ```bash
 ros2 run sentinel_arm_tasks repeat_short_task --runs 1 \
@@ -444,7 +444,7 @@ ros2 run sentinel_arm_tasks repeat_short_task --runs 1 \
   --attack-events-csv "$RUN_DIR/attack_events.csv"
 ```
 
-**Long task — cylinder targeted**
+**Long task - cylinder targeted**
 
 ```bash
 ros2 run sentinel_arm_tasks repeat_long_task --runs 1 \
@@ -464,7 +464,7 @@ ros2 run sentinel_arm_tasks repeat_long_task --runs 1 \
 
 ### Replay: task commands
 
-**Short task — cube targeted**
+**Short task - cube targeted**
 
 ```bash
 ros2 run sentinel_arm_tasks repeat_short_task --runs 1 \
@@ -482,7 +482,7 @@ ros2 run sentinel_arm_tasks repeat_short_task --runs 1 \
   --attack-events-csv "$RUN_DIR/attack_events.csv"
 ```
 
-**Long task — cylinder targeted**
+**Long task - cylinder targeted**
 
 ```bash
 ros2 run sentinel_arm_tasks repeat_long_task --runs 1 \
@@ -502,7 +502,7 @@ ros2 run sentinel_arm_tasks repeat_long_task --runs 1 \
 
 ### Delay DoS: task commands
 
-**Short task — cube targeted**
+**Short task - cube targeted**
 
 ```bash
 ros2 run sentinel_arm_tasks repeat_short_task --runs 1 \
@@ -520,7 +520,7 @@ ros2 run sentinel_arm_tasks repeat_short_task --runs 1 \
   --attack-events-csv "$RUN_DIR/attack_events.csv"
 ```
 
-**Long task — cylinder targeted**
+**Long task - cylinder targeted**
 
 ```bash
 ros2 run sentinel_arm_tasks repeat_long_task --runs 1 \
